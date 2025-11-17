@@ -36,6 +36,17 @@ python -m wsi_tools.infer_wsi \
     --device cuda
 ```
 
+Quick, step-by-step run guide:
+
+1) Ensure you have a trained checkpoint and matching mmsegmentation config.
+   - Place them under `./checkpoints` and `./configs` respectively (or point to your own paths).
+2) Verify dependencies load:
+   - `python -m wsi_tools.infer_wsi --help` (should print CLI usage).
+3) Run inference with the command above (adjust paths for your WSI, config, and checkpoint).
+4) Check outputs under `./outputs_wsi`:
+   - `<wsi_name>_mask.png` and `<wsi_name>_overlay.png`.
+5) If CUDA is unavailable or you hit GPU errors, re-run with `--device cpu`.
+
 ### Arguments
 - `--wsi_path`: input WSI path (.svs, .tif, .tiff).
 - `--checkpoint`: trained mmsegmentation checkpoint.
