@@ -1,0 +1,10 @@
+numpy
+pillow
+opencv-python
+tifffile
+openslide-python
+mmcv
+mmsegmentation
+torchvision
+# Install torch separately to match your CUDA version: see https://pytorch.org/get-started/locally/
+tqdm
