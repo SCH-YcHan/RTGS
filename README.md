@@ -6,31 +6,9 @@ This project provides a mmsegmentation-based U-Net pipeline for glomeruli segmen
 
 ## Environment setup (Windows 11 + Conda example)
 
-### Quickstart (minimal steps)
+### Recommended full setup (start-to-finish)
 
-```bash
-# create environment
-conda create -n glom_wsi python=3.10
-conda activate glom_wsi
-
-# install python dependencies (torch/mmcv/mmseg installed separately to match CUDA)
-pip install -r requirements.txt
-
-# IMPORTANT: install PyTorch/torchvision for your CUDA version separately
-# follow https://pytorch.org/get-started/locally/
-```
-
-If you keep a local `mmsegmentation/` clone inside the project root, the scripts automatically add it to `PYTHONPATH`. Otherwise install mmsegmentation via `pip install -e mmsegmentation` or from PyPI.
-
-**mmcv/mmseg compatibility**: If you see an error such as `MMCV==2.2.0 is used but incompatible. Please install mmcv>=2.0.0rc4.`, reinstall mmcv within the version range supported by your mmsegmentation package. For CUDA 11.8 and PyTorch 2.0.x, a known working combination is `mmcv==2.0.0` installed from the OpenMMLab wheel index (example shown below).
-
-If mmsegmentation fails to import with `ModuleNotFoundError: No module named 'ftfy'`, install the missing optional dependency:
-
-```bash
-pip install ftfy
-```
-
-### Known-good setup (mirrors a previously working environment)
+Use the following end-to-end sequence as your default setup path. It mirrors a previously validated environment and avoids mixing partially installed dependencies.
 
 ```bash
 # Anaconda env setting
@@ -56,6 +34,32 @@ pip install mmcv==2.0.0 -f https://download.openmmlab.com/mmcv/dist/cu118/torch2
 pip uninstall numpy -y
 pip cache purge
 pip install numpy==1.24.4
+```
+
+### Quickstart (minimal steps)
+
+If you only need a minimal environment and will handle GPU-specific packages yourself, follow these shorter commands. They are best used when you already know the right torch/mmcv/mmseg versions for your CUDA stack.
+
+```bash
+# create environment
+conda create -n glom_wsi python=3.10
+conda activate glom_wsi
+
+# install python dependencies (torch/mmcv/mmseg installed separately to match CUDA)
+pip install -r requirements.txt
+
+# IMPORTANT: install PyTorch/torchvision for your CUDA version separately
+# follow https://pytorch.org/get-started/locally/
+```
+
+If you keep a local `mmsegmentation/` clone inside the project root, the scripts automatically add it to `PYTHONPATH`. Otherwise install mmsegmentation via `pip install -e mmsegmentation` or from PyPI.
+
+**mmcv/mmseg compatibility**: If you see an error such as `MMCV==2.2.0 is used but incompatible. Please install mmcv>=2.0.0rc4.`, reinstall mmcv within the version range supported by your mmsegmentation package. For CUDA 11.8 and PyTorch 2.0.x, a known working combination is `mmcv==2.0.0` installed from the OpenMMLab wheel index (example shown below).
+
+If mmsegmentation fails to import with `ModuleNotFoundError: No module named 'ftfy'`, install the missing optional dependency:
+
+```bash
+pip install ftfy
 ```
 
 ## Batch WSI inference (Phase 1)
