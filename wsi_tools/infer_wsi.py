@@ -80,9 +80,24 @@ def select_device(user_device: str | None) -> str:
 
 
 def load_model(config_path: Path, checkpoint_path: Path, device: str):
+    """Load an mmsegmentation model with compatibility-friendly messaging."""
+
     _require_module("mmseg")
     _require_module("mmcv")
-    from mmseg.apis import init_model
+    import mmcv
+
+    LOGGER.info("Detected mmcv version: %s", getattr(mmcv, "__version__", "unknown"))
+    try:
+        from mmseg.apis import init_model
+    except AssertionError as err:
+        # mmseg raises AssertionError when the installed mmcv version is outside
+        # its supported range. Surface a clearer guidance for users.
+        raise RuntimeError(
+            "mmsegmentation reported an incompatible mmcv version. "
+            "Please reinstall mmcv to a version supported by your mmsegmentation package. "
+            "The original error was: "
+            f"{err}"
+        ) from err
 
     model = init_model(str(config_path), str(checkpoint_path), device=device)
     return model

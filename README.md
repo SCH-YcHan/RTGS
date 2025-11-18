@@ -20,6 +20,13 @@ pip install -r requirements.txt
 
 If you keep a local `mmsegmentation/` clone inside the project root, the scripts automatically add it to `PYTHONPATH`. Otherwise install mmsegmentation via `pip install -e mmsegmentation` or from PyPI.
 
+**mmcv/mmseg compatibility**: If you see an error such as `MMCV==2.2.0 is used but incompatible. Please install mmcv>=2.0.0rc4.`, reinstall mmcv within the version range supported by your mmsegmentation package. A safe default for the shipped configs is:
+
+```bash
+pip uninstall -y mmcv
+pip install "mmcv>=2.0.0rc4,<2.1.0"
+```
+
 ## Batch WSI inference (Phase 1)
 
 Run segmentation on a single WSI:
