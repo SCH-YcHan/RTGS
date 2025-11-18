@@ -1,0 +1,11 @@
+numpy
+pillow
+opencv-python
+tifffile
+openslide-python
+# Pin mmcv to a range that matches mmsegmentation defaults to avoid import assertions.
+mmcv>=2.0.0rc4,<2.1.0
+mmsegmentation
+torchvision
+# Install torch separately to match your CUDA version: see https://pytorch.org/get-started/locally/
+tqdm
