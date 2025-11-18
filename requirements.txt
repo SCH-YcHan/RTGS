@@ -13,4 +13,20 @@ scikit-learn>=0.24.0
 openslide-python
 ftfy
 
-# mmcv/mmseg and torch are installed separately to match your CUDA toolchain and mmsegmentation clone.
+# Deep learning stack (align with CUDA 11.8 + PyTorch 2.0.x)
+# Install torch via conda to pick up the matching `pytorch-cuda=11.8` build
+# conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.8 -c pytorch -c nvidia
+torch==2.0.1
+torchvision==0.15.2
+torchaudio==2.0.2
+
+# OpenMMLab segmentation stack
+mmcv==2.0.0         # install with CUDA 11.8 wheels: https://download.openmmlab.com/mmcv/dist/cu118/torch2.0/index.html
+mmengine>=0.7.0
+# mmsegmentation is installed from source:
+#   git clone -b main https://github.com/open-mmlab/mmsegmentation.git
+#   pip install -v -e .
+
+# Dev + notebook utilities
+jupyter
+notebook
