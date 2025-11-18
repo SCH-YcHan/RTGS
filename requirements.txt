@@ -1,12 +1,16 @@
-numpy
-pillow
-opencv-python
-tifffile
+# Core numerical and image dependencies
+numpy==1.24.4
+pandas>=1.3.0
+matplotlib>=3.4.0
+Pillow>=8.2.0
+tifffile>=2021.4.8
+opencv-python>=4.5.1
+tqdm>=4.62.0
+rasterio>=1.2.0
+scikit-learn>=0.24.0
+
+# WSI + overlay helpers
 openslide-python
-# Pin mmcv to a range that matches mmsegmentation defaults to avoid import assertions.
-mmcv>=2.0.0rc4,<2.1.0
-mmsegmentation
-torchvision
 ftfy
-# Install torch separately to match your CUDA version: see https://pytorch.org/get-started/locally/
-tqdm
+
+# mmcv/mmseg and torch are installed separately to match your CUDA toolchain and mmsegmentation clone.

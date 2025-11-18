@@ -6,12 +6,14 @@ This project provides a mmsegmentation-based U-Net pipeline for glomeruli segmen
 
 ## Environment setup (Windows 11 + Conda example)
 
+### Quickstart (minimal steps)
+
 ```bash
 # create environment
 conda create -n glom_wsi python=3.10
 conda activate glom_wsi
 
-# install dependencies
+# install python dependencies (torch/mmcv/mmseg installed separately to match CUDA)
 pip install -r requirements.txt
 
 # IMPORTANT: install PyTorch/torchvision for your CUDA version separately
@@ -20,17 +22,40 @@ pip install -r requirements.txt
 
 If you keep a local `mmsegmentation/` clone inside the project root, the scripts automatically add it to `PYTHONPATH`. Otherwise install mmsegmentation via `pip install -e mmsegmentation` or from PyPI.
 
-**mmcv/mmseg compatibility**: If you see an error such as `MMCV==2.2.0 is used but incompatible. Please install mmcv>=2.0.0rc4.`, reinstall mmcv within the version range supported by your mmsegmentation package. A safe default for the shipped configs is:
-
-```bash
-pip uninstall -y mmcv
-pip install "mmcv>=2.0.0rc4,<2.1.0"
-```
+**mmcv/mmseg compatibility**: If you see an error such as `MMCV==2.2.0 is used but incompatible. Please install mmcv>=2.0.0rc4.`, reinstall mmcv within the version range supported by your mmsegmentation package. For CUDA 11.8 and PyTorch 2.0.x, a known working combination is `mmcv==2.0.0` installed from the OpenMMLab wheel index (example shown below).
 
 If mmsegmentation fails to import with `ModuleNotFoundError: No module named 'ftfy'`, install the missing optional dependency:
 
 ```bash
 pip install ftfy
+```
+
+### Known-good setup (mirrors a previously working environment)
+
+```bash
+# Anaconda env setting
+conda create -n MIE python=3.10
+conda activate MIE
+conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.8 -c pytorch -c nvidia
+conda install jupyter notebook
+
+# clone this repository
+git clone https://github.com/SCH-YcHan/Glomer.git
+cd Glomer
+pip install -r requirements.txt
+
+# clone mmsegmentation and install
+git clone -b main https://github.com/open-mmlab/mmsegmentation.git
+cd mmsegmentation
+pip install -v -e .
+pip install -U mmengine
+# install mmcv 2.0.0 built for CUDA 11.8 + PyTorch 2.0.x
+pip install mmcv==2.0.0 -f https://download.openmmlab.com/mmcv/dist/cu118/torch2.0/index.html
+
+# (optional but helpful) align numpy with a stable version
+pip uninstall numpy -y
+pip cache purge
+pip install numpy==1.24.4
 ```
 
 ## Batch WSI inference (Phase 1)
