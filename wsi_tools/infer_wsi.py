@@ -84,6 +84,15 @@ def load_model(config_path: Path, checkpoint_path: Path, device: str):
 
     _require_module("mmseg")
     _require_module("mmcv")
+    # Some mmseg builds require ftfy at import time for tokenizer utilities.
+    try:
+        _require_module("ftfy")
+    except ImportError as err:
+        raise ImportError(
+            "Module 'ftfy' is required by mmsegmentation but is missing. "
+            "Install it with `pip install ftfy` and rerun."
+        ) from err
+
     import mmcv
 
     LOGGER.info("Detected mmcv version: %s", getattr(mmcv, "__version__", "unknown"))
@@ -98,6 +107,13 @@ def load_model(config_path: Path, checkpoint_path: Path, device: str):
             "The original error was: "
             f"{err}"
         ) from err
+    except ModuleNotFoundError as err:
+        if err.name == "ftfy":
+            raise ImportError(
+                "mmsegmentation could not import because 'ftfy' is missing. "
+                "Install it with `pip install ftfy` and retry."
+            ) from err
+        raise
 
     model = init_model(str(config_path), str(checkpoint_path), device=device)
     return model

@@ -7,5 +7,6 @@ openslide-python
 mmcv>=2.0.0rc4,<2.1.0
 mmsegmentation
 torchvision
+ftfy
 # Install torch separately to match your CUDA version: see https://pytorch.org/get-started/locally/
 tqdm

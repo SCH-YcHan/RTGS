@@ -27,6 +27,12 @@ pip uninstall -y mmcv
 pip install "mmcv>=2.0.0rc4,<2.1.0"
 ```
 
+If mmsegmentation fails to import with `ModuleNotFoundError: No module named 'ftfy'`, install the missing optional dependency:
+
+```bash
+pip install ftfy
+```
+
 ## Batch WSI inference (Phase 1)
 
 Run segmentation on a single WSI:
